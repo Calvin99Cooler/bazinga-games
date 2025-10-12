@@ -133,7 +133,7 @@
     "authorLink": "https://voodoo.io"
   },
   {
-    "name": "🔴 Pou",
+    "name": "Pou",
     "cover": "{COVER_URL}/23.png",
     "url": "{HTML_URL}/23.html",
     "author": "Zakeh",
@@ -3597,4 +3597,5 @@
     "author": "",
     "authorLink": ""
   }
+
 ]
