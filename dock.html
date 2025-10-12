@@ -1,0 +1,82 @@
+<div id="dock">
+  <button class="dock-btn" data-label="Home" onclick="window.location.href='index.html'">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l9-9 9 9v9a2 2 0 0 1-2 2h-4a2 2 0 0 1-2-2v-4H9v4a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-9z"/>
+    </svg>
+  </button>
+  <button class="dock-btn" data-label="Games" onclick="window.location.href='games.html'">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10h4.764a2 2 0 0 1 1.789 1.106l2.447 4.894A2 2 0 0 1 21.236 19H14m-4 0H2.764a2 2 0 0 1-1.764-2.894l2.447-4.894A2 2 0 0 1 5.236 10H10m4 9v2m-4-2v2"/>
+    </svg>
+  </button>
+  <button class="dock-btn" data-label="About" onclick="window.location.href='about.html'">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 4h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0z"/>
+    </svg>
+  </button>
+  <div class="dock-label" id="dockLabel"></div>
+</div>
+
+<style>
+#dock {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(20, 20, 20, 0.85);
+  backdrop-filter: blur(8px);
+  padding: 12px 24px;
+  border-radius: 40px;
+  display: flex;
+  gap: 24px;
+  align-items: center;
+  z-index: 1000;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+.dock-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: white;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+.dock-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateY(-4px);
+}
+.dock-btn svg {
+  width: 24px;
+  height: 24px;
+}
+.dock-label {
+  position: absolute;
+  bottom: 60px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #fff;
+  background: rgba(0,0,0,0.7);
+  padding: 4px 10px;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  pointer-events: none;
+}
+</style>
+
+<script>
+const dock = document.getElementById('dock');
+const label = document.getElementById('dockLabel');
+dock.querySelectorAll('.dock-btn').forEach(btn => {
+  btn.addEventListener('mouseenter', () => {
+    label.textContent = btn.getAttribute('data-label');
+    label.style.opacity = '1';
+  });
+  btn.addEventListener('mouseleave', () => {
+    label.style.opacity = '0';
+  });
+});
+</script>
