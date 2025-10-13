@@ -1,28 +1,90 @@
-<html lang="en">
-
-<head>
-    
-    
-    
-    <meta charset="utf-8" />
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Rabbibo/moto@35b09901c725d990145f7b305cbcb42ddcee4782/4-winter/assets/css/app.css" type="text/css" />
-</head>
-
-<body>
-    <div id="content"></div>
-    <div id="orientation"></div>
-    <div id="loader">Loading ...</div>
-    <script type="text/javascript" src="https://imasdk.googleapis.com/js/sdkloader/ima3.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/Rabbibo/moto@35b09901c725d990145f7b305cbcb42ddcee4782/4-winter/assets/box2dweb/nape.min.js">
-        var nape = "nape.min.js";
-    </script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/Rabbibo/moto@35b09901c725d990145f7b305cbcb42ddcee4782/4-winter/assets/box2dweb/nape-debug-draw.min.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/Rabbibo/moto@35b09901c725d990145f7b305cbcb42ddcee4782/4-winter/assets/box2dweb/jquery-3.1.1.min.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/Rabbibo/moto@35b09901c725d990145f7b305cbcb42ddcee4782/4-winter/assets/box2dweb/easeljs-0.8.2.combined.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/Rabbibo/moto@35b09901c725d990145f7b305cbcb42ddcee4782/4-winter/assets/box2dweb/bluebird.min.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/bobydob/JSEngine@081fe818fd0f1b2f8ae31a88f5fee4a3ac3aa346/build/m3mw/m3mw.min.js"></script>
-</body>
-
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<title>Moto X3M winter</title>
+
+<style>
+  html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: #000;
+  }
+
+  /* Container that centers the game */
+  #content {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #000;
+  }
+
+  /* Canvas styling (add margins here) */
+  canvas {
+    display: block;
+    background: #000;
+    touch-action: none;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+
+    margin-left: 0px;   /* change this to 50px or -50px etc. */
+    margin-right: -1500px;  /* change this to control spacing on the right */
+  }
+</style>
+</head>
+
+<body>
+  <div id="content">
+    <canvas id="gameCanvas" width="720" height="480"></canvas>
+  </div>
+
+  <!-- Game dependencies -->
+	<script src="https://cdn.jsdelivr.net/gh/st39/sdk@main/api.js"></script>
+    <script type="text/javascript" src="https://3919742-770232735473693792.preview.editmysite.com/uploads/b/139890129-115469620385250395/files/assets/lib/jquery-3.1.1.min.js"></script>
+    <script type="text/javascript" src="https://3919742-770232735473693792.preview.editmysite.com/uploads/b/139890129-115469620385250395/files/assets/lib/easeljs-0.8.2.combined.js"></script>
+    <script type="text/javascript" src="https://3919742-770232735473693792.preview.editmysite.com/uploads/b/139890129-115469620385250395/files/assets/lib/bluebird.min.js"></script>
+    <script type="text/javascript" src="https://3919742-770232735473693792.preview.editmysite.com/uploads/b/139890129-115469620385250395/files/assets/lib/phaser.min.js"></script>
+    <script type="text/javascript" src="https://3919742-770232735473693792.preview.editmysite.com/uploads/b/139890129-115469620385250395/files/assets/lib/phaser-cachebuster.min.js"></script>
+    <script type="text/javascript" src="https://3919742-770232735473693792.preview.editmysite.com/uploads/b/139890129-115469620385250395/files/assets/lib/phaser-super-storage.min.js"></script>
+    <script type="text/javascript" src="https://3919742-770232735473693792.preview.editmysite.com/uploads/b/139890129-115469620385250395/files/assets/lib/dragonBones.min.js"></script> 
+
+  <!-- Your actual game file -->
+    <script type="text/javascript" src="https://3919742-770232735473693792.preview.editmysite.com/uploads/b/139890129-115469620385250395/files/assets/lib/nape.min.js">
+        var nape ="nape.min.js";
+    </script>
+<script type="text/javascript" src="https://3919742-770232735473693792.preview.editmysite.com/uploads/b/139890129-115469620385250395/files/motox3m4.min.js"></script>
+  <!-- Resize logic -->
+  <script>
+    const canvas = document.getElementById('gameCanvas');
+    const aspect = 720 / 480;
+
+    function resizeCanvas() {
+      const winW = window.innerWidth;
+      const winH = window.innerHeight;
+      let newW = winW;
+      let newH = newW / aspect;
+
+      if (newH > winH) {
+        newH = winH;
+        newW = newH * aspect;
+      }
+
+      canvas.style.width = `${newW}px`;
+      canvas.style.height = `${newH}px`;
+    }
+
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+  </script>
+</body>
 </html>
