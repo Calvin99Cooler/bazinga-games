@@ -3310,7 +3310,7 @@
     "authorLink": "https://nick.com"
   },
   {
-    "name": "SpongeBob SquarePants Squidward s Sizzlin  Scare",
+    "name": "SpongeBob.SquarePants.Squidwards.Sizzlin.Scare",
     "cover": "{COVER_URL}/528.png",
     "url": "{HTML_URL}/528.html",
     "author": "Nickelodeon",
@@ -3585,4 +3585,5 @@
   }
 
 ]
+
 
