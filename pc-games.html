@@ -56,7 +56,7 @@ body{background:#000;color:#f5f5f5;min-height:100vh;padding:2rem;display:flex;fl
 
 <script>
 // Load PC games from local JSON
-fetch('pc-games.json')
+fetch('https://raw.githubusercontent.com/Calvin99Cooler/pc-games/main/pc-games.json')
   .then(response => response.json())
   .then(games => {
     const grid = document.getElementById('gamesGrid');
