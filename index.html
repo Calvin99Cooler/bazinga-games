@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Bazinga Portal</title>
+  <style>
+    html,body{margin:0;padding:0;height:100%;overflow:hidden;font-family:system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+    iframe{width:100%;height:100%;border:0}
+    #dock{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);z-index:1000}
+  </style>
+</head>
+<body>
+  <iframe id="mainFrame" src="home.html"></iframe>
+  <div id="dock"></div>
+
+  <script>
+  /* ---------- 1.  inject the dock  ---------- */
+  fetch('https://raw.githubusercontent.com/Calvin99Cooler/bazinga-games/main/dock.html?t='+Date.now())
+    .then(r=>r.text())
+    .then(html=>{
+        document.getElementById('dock').innerHTML=html;
+
+        /* ---------- 2.  hijack every dock button  ---------- */
+        document.querySelectorAll('.dock-btn').forEach(btn=>{
+          const raw=btn.getAttribute('onclick');          // loadPage('....')
+          const url=raw?.match(/'(.*?)'/)[1];            // grab first string
+          if(!url)return;
+
+          btn.removeAttribute('onclick');                // kill inline handler
+          btn.addEventListener('click',e=>{
+            e.stopPropagation();
+            document.getElementById('mainFrame').src=url;
+          });
+        });
+    });
+  </script>
+</body>
+</html>
