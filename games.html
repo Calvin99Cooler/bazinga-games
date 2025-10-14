@@ -226,19 +226,5 @@ fetch(`https://raw.githubusercontent.com/Calvin99Cooler/bazinga-games/main/versi
   });
 })();
 </script>
-
-<script>
-(function(){
-  if(window.localStorage){
-    if(!localStorage.getItem('firstLoad')){
-      localStorage['firstLoad'] = true;
-      location.reload();
-    } else {
-      localStorage.removeItem('firstLoad');
-    }
-  }
-})();
-</script>
-
 </body>
 </html>
