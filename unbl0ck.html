@@ -22,11 +22,9 @@ body {
 
 #version-indicator {
   font-size: 2rem;
-  color: #f5f5f5;
   font-weight: 500;
   text-align: center;
-  line-height: 1;
-  margin-bottom: 0.1rem;
+  margin-bottom: 1rem;
 }
 
 .wrap {
@@ -35,24 +33,13 @@ body {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  gap: 0.25rem;
-  padding: 0;
+  gap: 0.5rem;
 }
 
-.left {
+.left, .right {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 0.25rem;
-  flex: 1;
-  min-width: 280px;
-}
-
-.right {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 0.25rem;
+  gap: 0.5rem;
   flex: 1;
   min-width: 280px;
 }
@@ -64,8 +51,6 @@ body {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   text-align: center;
-  margin: 0;
-  line-height: 1;
 }
 
 button {
@@ -78,7 +63,6 @@ button {
   border-radius: 25px;
   cursor: pointer;
   transition: transform .3s, box-shadow .3s;
-  line-height: 1;
 }
 button:hover {
   transform: translateY(-3px);
@@ -88,14 +72,13 @@ button:hover {
 #link-display a {
   display: inline-block;
   background: rgba(255,255,255,.05);
-  padding: .5rem 1rem;
+  padding: 0.5rem 1rem;
   border-radius: 15px;
   border: 1px solid rgba(255,255,255,.1);
   color: #f5f5f5;
   font-size: 1rem;
   text-decoration: none;
   transition: transform .3s, box-shadow .3s;
-  line-height: 1;
 }
 #link-display a:hover {
   transform: translateY(-3px);
@@ -110,19 +93,15 @@ button:hover {
   background: #4cff7c;
 }
 
-.right span, .right div:nth-child(2) {
-  color: #f5f5f5;
+.right span {
   font-size: 1rem;
-  line-height: 1.2;
 }
 </style>
-
 </head>
 
 <body>
-<br>
+
 <div id="version-indicator">Version: ...</div>
-<br><br><br><br><br><br>
 
 <div class="wrap">
   <div class="left">
@@ -141,7 +120,6 @@ button:hover {
 </div>
 
 <script>
-/* Array of unblocker links */
 const links = [
   "https://environment.inpact.net/",
   "https://whs-001.roig.com/",
@@ -155,23 +133,21 @@ document.getElementById("site-count").textContent = `${links.length} Available U
 
 function showRandomLink() {
   const randomLink = links[Math.floor(Math.random() * links.length)];
-  document.getElementById("link-display").innerHTML = `<a href="${randomLink}" target="_blank">${randomLink}</a>`;
+  document.getElementById("link-display").innerHTML =
+    `<a href="${randomLink}" target="_blank" rel="noopener noreferrer">${randomLink}</a>`;
 }
 
-/* Fetch version from GitHub with timestamp and show fetch time */
-const ts = () => Date.now();
-const versionURL = `https://raw.githubusercontent.com/Calvin99Cooler/bazinga-games/main/version.txt?t=${ts()}`;
+// Fetch version from GitHub
+const versionURL = `https://raw.githubusercontent.com/Calvin99Cooler/bazinga-games/main/version.txt?t=${Date.now()}`;
 fetch(versionURL)
   .then(res => res.text())
   .then(v => {
-    const now = new Date();
-    const formatted = now.toLocaleString();
-    document.getElementById('version-indicator').textContent =
-      `Version: ${v.trim()}`;
+    document.getElementById('version-indicator').textContent = `Version: ${v.trim()}`;
   })
   .catch(() => {
     document.getElementById('version-indicator').textContent = 'Version: unavailable';
   });
 </script>
+
 </body>
 </html>
