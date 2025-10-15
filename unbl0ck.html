@@ -117,28 +117,6 @@ button:hover {
 }
 </style>
 
-<script>
-/* Reload page once on first visit */
-(function(){
-  if(window.localStorage){
-    if(!localStorage.getItem('firstLoad')){
-      localStorage['firstLoad']=true;
-      location.reload();
-    } else localStorage.removeItem('firstLoad');
-  }
-})();
-</script>
-
-<script>
-(function() {
-  const homepage = "https://bazinga.great-site.net/";
-  const allowedReferrer = "https://bazinga.great-site.net/";
-  const referrer = document.referrer;
-  if (referrer && !referrer.startsWith(allowedReferrer)) {
-    window.location.replace(homepage);
-  }
-})();
-</script>
 </head>
 
 <body>
