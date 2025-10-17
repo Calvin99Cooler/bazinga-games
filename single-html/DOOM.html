@@ -78,7 +78,7 @@ function startGame(){ageCheckBox.checked=false;window.scrollTo(0,0);let module_a
 if(foundIWAD!==null){module_arguments=module_arguments.concat(['-iwad',foundIWAD]);}
 if(foundPWADs.length>0)
 module_arguments=module_arguments.concat(['-file']).concat(foundPWADs);if(foundDEHs.length>0)
-module_arguments=module_arguments.concat(['-deh']).concat(foundDEHs);console.info('Launching with arguments: '+module_arguments);Module.arguments=Module.arguments.concat(module_arguments);const script=document.createElement('script');script.src='index.js';script.async=true;document.body.appendChild(script);}
+module_arguments=module_arguments.concat(['-deh']).concat(foundDEHs);console.info('Launching with arguments: '+module_arguments);Module.arguments=Module.arguments.concat(module_arguments);const script=document.createElement('script');script.src='https://cdn.jsdelivr.net/gh/Calvin99Cooler/bazinga-games-assets@main/doom/index.js';script.async=true;document.body.appendChild(script);}
 loadSettings();updateFileCount();disableInputs();updateModCredit();
 </script>
      <script>
@@ -93,3 +93,4 @@ loadSettings();updateFileCount();disableInputs();updateModCredit();
         }
       })();
     </script>
+
