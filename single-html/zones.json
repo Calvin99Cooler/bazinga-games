@@ -56,6 +56,13 @@
     "authorLink": "https://www.halfbrick.com"
   },
   {
+    "name": "Jack Smith",
+    "cover": "{COVER_URL}/jack-smith.jfif",
+    "url": "{HTML_URL}/7.html",
+    "author": "Halfbrick Studios",
+    "authorLink": "https://www.halfbrick.com"
+  },
+  {
     "name": "Friday Night Funkin",
     "cover": "{COVER_URL}/8.png",
     "url": "{HTML_URL}/8.html",
@@ -3585,5 +3592,6 @@
   }
 
 ]
+
 
 
