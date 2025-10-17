@@ -81,16 +81,4 @@ module_arguments=module_arguments.concat(['-file']).concat(foundPWADs);if(foundD
 module_arguments=module_arguments.concat(['-deh']).concat(foundDEHs);console.info('Launching with arguments: '+module_arguments);Module.arguments=Module.arguments.concat(module_arguments);const script=document.createElement('script');script.src='https://cdn.jsdelivr.net/gh/Calvin99Cooler/bazinga-games-assets@main/doom/index.js';script.async=true;document.body.appendChild(script);}
 loadSettings();updateFileCount();disableInputs();updateModCredit();
 </script>
-     <script>
-      (function() {
-        if (window.localStorage) {
-          if (!localStorage.getItem('firstLoad')) {
-            localStorage['firstLoad'] = true;
-            location.reload();
-          } else {
-            localStorage.removeItem('firstLoad');
-          }
-        }
-      })();
-    </script>
 
