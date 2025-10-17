@@ -39,13 +39,17 @@
     This is the Bazinga Games homepage. Please use the dock above to navigate.
   </h1>
 
-  <script>
-    (() => {
-      const el = document.getElementById('version-indicator');
-      fetch(`https://raw.githubusercontent.com/Calvin99Cooler/bazinga-games/main/version.txt?t=${Date.now()}`)
-        .then(r => r.text())
-        .then(v => el.textContent = `Version: ${v.trim()}`)
-        .catch(() => el.textContent = 'Version: unavailable');
-    })();
-  </script>
+<script>
+(() => {
+  const el = document.getElementById('version-indicator');
+  fetch(`https://raw.githubusercontent.com/Calvin99Cooler/bazinga-games/main/version.json?t=${Date.now()}`)
+    .then(r => r.json())
+    .then(data => {
+      el.textContent = `Version: ${data.version}`;
+    })
+    .catch(() => {
+      el.textContent = 'Version: unavailable';
+    });
+})();
+</script>
 </div>
