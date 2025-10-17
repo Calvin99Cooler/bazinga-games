@@ -153,10 +153,14 @@
         })
         .catch(() => grid.innerHTML = '<p>Unable to load changelogs.</p>');
 
-      fetch(`https://raw.githubusercontent.com/Calvin99Cooler/bazinga-games/main/version.txt?t=${ts}`)
-        .then(r => r.text())
-        .then(v => document.getElementById('version-indicator').textContent = `Version: ${v.trim()}`)
-        .catch(() => document.getElementById('version-indicator').textContent = 'Version: unavailable');
-    })();
+     fetch(`https://raw.githubusercontent.com/Calvin99Cooler/bazinga-games/main/version.json?t=${ts}`)
+    .then(r => r.json())
+    .then(data => {
+      document.getElementById('version-indicator').textContent = `Version: ${data.version}`;
+    })
+    .catch(() => {
+      document.getElementById('version-indicator').textContent = 'Version: unavailable';
+    });
+})();
   </script>
 </div>
