@@ -1,51 +1,51 @@
-<!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Clever | Portal</title>
-<link rel="icon" href="https://assets.clever.com/launchpad/4cfe59076/favicon.ico" type="image/x-icon">
-<style>
-body {
-  background: #000;
-  color: #f5f5f5;
-  font-family: 'Poppins', sans-serif;
-  padding: 1rem;
-  min-height: 100vh;
-}
+<!-- ==========  HOME WIDGET  ========== -->
+<div id="home-widget">
+  <style>
+    #home-widget {
+      --bg: #000;
+      --fg: #f5f5f5;
+      background: var(--bg);
+      color: var(--fg);
+      font-family: 'Poppins', sans-serif;
+      padding: 1rem;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    #home-widget header {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    #home-widget h1 {
+      margin: 0;
+      font-size: 2rem;
+      font-weight: 500;
+      line-height: 1.2;
+    }
+    #home-widget #version-indicator {
+      font-size: 2rem;
+      font-weight: 500;
+    }
+    #home-widget .main-text {
+      margin-top: 2rem;
+    }
+  </style>
 
-#version-indicator {
-  font-size: 2rem;
-  font-weight: 500;
-  margin-left: 0.5rem;
-}
+  <header>
+    <h1>Home Page |</h1>
+    <h1 id="version-indicator">Version: …</h1>
+  </header>
+  <h1 class="main-text">
+    This is the Bazinga Games homepage. Please use the dock below to navigate.
+  </h1>
 
-h1.main-text {
-  font-size: 2rem;
-  font-weight: 500;
-  line-height: 1.2;
-  margin-top: 2rem;
-}
-</style>
-</head>
-<body>
-
-<header style="display:flex;align-items:center;gap:0.5rem;">
-  <h1>Home Page |</h1>
-  <h1 id="version-indicator">Version: ...</h1>
-</header>
-
-<h1 class="main-text">
-  This is the Bazinga Games homepage. Please use the dock below to navigate.
-</h1>
-
-<script>
-// Fetch version directly from GitHub with timestamp (no cache)
-fetch(`https://raw.githubusercontent.com/Calvin99Cooler/bazinga-games/main/version.txt?t=${Date.now()}`)
-  .then(res => res.text())
-  .then(v => document.getElementById('version-indicator').textContent = `Version: ${v.trim()}`)
-  .catch(() => document.getElementById('version-indicator').textContent = 'Version: unavailable');
-</script>
-
-</body>
-</html>
+  <script>
+    (() => {
+      const el = document.getElementById('version-indicator');
+      fetch(`https://raw.githubusercontent.com/Calvin99Cooler/bazinga-games/main/version.txt?t=${Date.now()}`)
+        .then(r => r.text())
+        .then(v => el.textContent = `Version: ${v.trim()}`)
+        .catch(() => el.textContent = 'Version: unavailable');
+    })();
+  </script>
+</div>
