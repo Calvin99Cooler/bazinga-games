@@ -1,1 +1,61 @@
-
+[
+  {
+    "version": "v1.3",
+    "date": "October 13, 2025",
+    "changes": [
+      "Fixed - Moto X3M, Moto X3M Winter, Bottle Flip 3D."
+    ]
+  },
+  {
+    "version": "v1.2",
+    "date": "October 12, 2025",
+    "changes": [
+      "Fully new site design.",
+      "Changing the way games are hosted so they cant be blocked."
+    ]
+  },
+  {
+    "version": "v0.9",
+    "date": "October 10, 2025",
+    "changes": [
+      "Fixed - Raft Wars, Idle Lumber Inc, Bad parenting, I woke up next to you again, Ragdoll hit.",
+      "Added a game(s) - Five Nights At Diddy's, Tank Trouble 2, Bad piggies."
+    ]
+  },
+  {
+    "version": "v0.8",
+    "date": "October 8, 2025",
+    "changes": [
+      "Fixed - Learn to fly 2.",
+      "Added a game(s) - Swords and sandals 1, Swords and sandals 2, Pico's School, Ray - Part 1, Ray - Part 2 & Peter griffin soundboard."
+    ]
+  },
+  {
+    "version": "v0.7",
+    "date": "October 7, 2025",
+    "changes": [
+      "Fixed - Papas Burgeria, Papas Pancakeria, Papas Taco Mia, Papas Wingeria.",
+      "Fixed - Spider Doll.",
+      "Added a version identifier."
+    ]
+  },
+  {
+    "version": "v0.6",
+    "date": "October 6, 2025",
+    "changes": [
+      "Added an indicator to each game (Red for broken & Green for working).",
+      "Added a game(s) - Rocket Soccer Derby, Throw a potato in space.",
+      "Fixed - Scrap metal 3, Draw the hill & osu!.",
+      "Finished the Unblockers page & now has working links."
+    ]
+  },
+  {
+    "version": "v0.5",
+    "date": "October 6, 2025",
+    "changes": [
+      "Added alot of new games.",
+      "Fixed - Backrooms, Subway Surfers, Gladi Hoppers.",
+      "Added changelogs section."
+    ]
+  }
+]
