@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+<title>Clever | Portal</title>
+<link rel="icon" href="https://assets.clever.com/launchpad/4cfe59076/favicon.ico" type="image/x-icon">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: #000;
+      color: #f5f5f5;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    #dock {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      padding: 0.75rem 1rem;
+      background: #111;
+      border-bottom: 1px solid rgba(255,255,255,.1);
+    }
+
+    .dock-btn-wrapper {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .dock-btn {
+      width: 48px;
+      height: 48px;
+      padding: 8px;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      border-radius: 12px;
+      transition: background .2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .dock-btn:hover {
+      background: rgba(255,255,255,.1);
+    }
+
+    .dock-btn svg {
+      width: 24px;
+      height: 24px;
+    }
+    .dock-btn svg,
+    .dock-btn svg * {
+    stroke: #fff !important;
+    }
+    .dock-btn svg [fill="none"],
+    .dock-btn svg [stroke="none"] {
+      fill:   none !important;
+      stroke: none !important;
+    }
+
+    .btn-label {
+      position: absolute;
+      top: 100%;
+      margin-top: 6px;
+      background: rgba(0,0,0,.8);
+      color: #fff;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .2s;
+    }
+
+    .dock-btn-wrapper:hover .btn-label {
+      opacity: 1;
+    }
+
+    #loader {
+      text-align: center;
+      padding: 2rem;
+      font-size: 1.2rem;
+    }
+
+    #widget-host {
+      min-height: 100vh;
+    }
+  </style>
+</head>
+<body>
+
+<div id="dock"></div>
+<div id="loader">Loading…</div>
+<div id="widget-host"></div>
+
+<script>
+const dockItems = [
+  {
+    name: "Home",
+    icon: "data:image/svg+xml;charset=utf-8,%3Csvg%20viewBox%3D%220%200%2024%2024%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M10%2020v-6h4v6h5v-8h3L12%203%202%2012h3v8z%22%3E%3C%2Fpath%3E%3C%2Fsvg%3E",
+    url: "https://raw.githubusercontent.com/Calvin99Cooler/bazinga-games/main/home.html"
+  },
+  {
+    name: "Games",
+    icon: "https://raw.githubusercontent.com/Calvin99Cooler/bazinga-games/refs/heads/main/icons/games.svg",
+    url: "https://raw.githubusercontent.com/Calvin99Cooler/bazinga-games/main/games.html"
+  },
+  {
+    name: "PC Games",
+    icon: "https://raw.githubusercontent.com/Calvin99Cooler/bazinga-games/refs/heads/main/icons/pc-games.svg",
+    url: "https://raw.githubusercontent.com/Calvin99Cooler/bazinga-games/main/pc-games.html"
+  },
+  {
+    name: "Unblockers",
+    icon: "https://raw.githubusercontent.com/Calvin99Cooler/bazinga-games/refs/heads/main/icons/unblock.svg",
+    url: "https://raw.githubusercontent.com/Calvin99Cooler/bazinga-games/main/unbl0ck.html"
+  },
+  {
+    name: "Recommend a game",
+    icon: "https://raw.githubusercontent.com/Calvin99Cooler/bazinga-games/refs/heads/main/icons/recommend.svg",
+    url: `new-tab: true;https://bazinga.great-site.net/recommend.php`
+  },
+  {
+    name: "Report a broken game",
+    icon: "https://raw.githubusercontent.com/Calvin99Cooler/bazinga-games/f7d2f049e75010f8acf622c1e46b3b180d45e363/icons/report-game.svg",
+    url: `new-tab: true;https://bazinga.great-site.net/broken-game.php`
+  },
+  {
+    name: "Changelogs",
+    icon: "https://raw.githubusercontent.com/Calvin99Cooler/bazinga-games/refs/heads/main/icons/changelogs.svg",
+    url: "https://raw.githubusercontent.com/Calvin99Cooler/bazinga-games/main/changelogs.html"
+  }
+];
+
+const dock = document.getElementById('dock');
+const host = document.getElementById('widget-host');
+const loader = document.getElementById('loader');
+
+async function svgToInline(url){
+  try{
+    const res = await fetch(url), text = await res.text();
+    const svg = new DOMParser().parseFromString(text,'image/svg+xml').querySelector('svg');
+    if(!svg) return null;
+    if(!svg.hasAttribute('viewBox')){
+      const w = svg.getAttribute('width')||24, h = svg.getAttribute('height')||24;
+      svg.setAttribute('viewBox',`0 0 ${w} ${h}`);
+    }
+    svg.removeAttribute('width'); svg.removeAttribute('height');
+    svg.style.cssText = 'width:24px;height:24px';
+    return svg;
+  }catch{return null}
+}
+
+function loadWidget(url){
+  const raw = url.trim();
+  const match = raw.match(/new-tab\s*:\s*true\s*;\s*(.+)/i);
+  if(match){                  // open in new tab
+    window.open(match[1].trim(),'_blank');
+    return;
+  }
+  // else inject into page
+  loader.style.display = 'block';
+  host.innerHTML = '';
+  fetch(raw)
+    .then(r=>r.text())
+    .then(html=>{
+      host.innerHTML = html;
+      host.querySelectorAll('script').forEach(old=>{
+        const fresh = document.createElement('script');
+        if(old.src) fresh.src = old.src;
+        else fresh.textContent = old.textContent;
+        [...old.attributes].forEach(a=>fresh.setAttribute(a.name,a.value));
+        old.replaceWith(fresh);
+      });
+    })
+    .catch(err=>host.innerHTML = `<p style="text-align:center;padding:3rem">Error loading widget: ${err.message}</p>`)
+    .finally(()=>loader.style.display = 'none');
+}
+
+dockItems.forEach(item=>{
+  const wrap = document.createElement('div');
+  wrap.className = 'dock-btn-wrapper';
+
+  const btn = document.createElement('button');
+  btn.className = 'dock-btn';
+  svgToInline(item.icon).then(svg=>{
+    if(svg) btn.appendChild(svg);
+    else btn.innerHTML = '⚠️';
+  });
+  btn.onclick = ()=>loadWidget(item.url);
+
+  const lbl = document.createElement('span');
+  lbl.className = 'btn-label';
+  lbl.textContent = item.name;
+
+  wrap.append(btn,lbl);
+  dock.appendChild(wrap);
+});
+
+// auto-load home
+loadWidget(dockItems[0].url);
+</script>
+<script>
+(function(){
+  if(window.localStorage){
+    if(!localStorage.getItem('firstLoad')){
+      localStorage['firstLoad']=true;
+      location.reload();
+    } else {
+      localStorage.removeItem('firstLoad');
+    }
+  }
+})();
+</script>
+</body>
+</html>
