@@ -119,10 +119,11 @@
           `<a href="${url}" target="_blank" rel="noopener noreferrer">${url}</a>`;
       });
 
+      const el = document.getElementById('version-indicator');
       fetch(`https://raw.githubusercontent.com/Calvin99Cooler/bazinga-games/main/version.txt?t=${Date.now()}`)
         .then(r => r.text())
-        .then(v => document.getElementById('version-indicator').textContent = `Version: ${v.trim()}`)
-        .catch(() => document.getElementById('version-indicator').textContent = 'Version: unavailable');
+        .then(v => el.textContent = `Version: ${v.trim()}`)
+        .catch(() => el.textContent = 'Version: unavailable');
     })();
   </script>
 </div>
