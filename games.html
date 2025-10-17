@@ -129,16 +129,17 @@
 </div>`;
 
   /* ----------  version ---------- */
-  (async () => {
-    const el = cnt.querySelector('#bzg-version');
-    const ts = Date.now();
-    try {
-      const r = await fetch(`https://raw.githubusercontent.com/Calvin99Cooler/bazinga-games/main/version.txt?t=${ts}`);
-      el.textContent = `Version: ${(await r.text()).trim()}`;
-    } catch {
-      el.textContent = 'Version: unavailable';
-    }
-  })();
+(async () => {
+  const el = cnt.querySelector('#bzg-version');
+  const ts = Date.now();
+  try {
+    const r = await fetch(`https://raw.githubusercontent.com/Calvin99Cooler/bazinga-games/main/version.json?t=${ts}`);
+    const data = await r.json();
+    el.textContent = `Version: ${data.version}`;
+  } catch {
+    el.textContent = 'Version: unavailable';
+  }
+})();
 
   /* ----------  games ---------- */
   (async () => {
