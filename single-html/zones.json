@@ -1110,6 +1110,13 @@
     "authorLink": "https://coweggs.itch.io/slope-plus"
   },
   {
+    "name": "Slope 2",
+    "cover": "{COVER_URL}/368.png",
+    "url": "{HTML_URL}/368.html",
+    "author": "idfk",
+    "authorLink": "https://gn-math.github.io"
+  },
+  {
     "name": "Time Shooter 1",
     "cover": "{COVER_URL}/199.png",
     "url": "{HTML_URL}/199.html",
@@ -2190,13 +2197,6 @@
     "url": "{HTML_URL}/367.html",
     "author": "Brain Software",
     "authorLink": "https://poki.com/en/g/parking-fury-3d"
-  },
-  {
-    "name": "Slope 2",
-    "cover": "{COVER_URL}/368.png",
-    "url": "{HTML_URL}/368.html",
-    "author": "idfk",
-    "authorLink": "https://gn-math.github.io"
   },
   {
     "name": "Slowroads",
@@ -3592,6 +3592,7 @@
   }
 
 ]
+
 
 
 
