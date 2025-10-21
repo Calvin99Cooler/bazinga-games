@@ -2,12 +2,22 @@
 <html>
 
 <head>
-    
-    
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>Gladihoppers</title>
+
     <script>
+        // Suppress all JS errors from showing popups
+        window.onerror = function (message, source, lineno, colno, error) {
+            console.warn("Suppressed error:", message, "at", source + ":" + lineno + ":" + colno);
+            return true; // prevents default alert
+        };
+
+        window.onunhandledrejection = function (event) {
+            console.warn("Suppressed unhandled promise rejection:", event.reason);
+            event.preventDefault(); // prevents default alert
+        };
+
         window.config = {
             loader: 'unity',
             debug: false,
