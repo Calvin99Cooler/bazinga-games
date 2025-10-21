@@ -21,7 +21,7 @@
     "authorLink": "https://dedragames.com"
   },
   {
-    "name": "Gladi-hoppers",
+    "name": "Gladi-hoppers (partially working)",
     "cover": "{COVER_URL}/4.png",
     "url": "https://adrian-3523.firebaseapp.com/gladih/",
     "author": "Dreamon Studios",
@@ -3592,6 +3592,7 @@
   }
 
 ]
+
 
 
 
