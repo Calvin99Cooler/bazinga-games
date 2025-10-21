@@ -79,7 +79,7 @@
       color:#888;
     }
 
-  #pcg-version {
+  #bzg-version {
   font-size: 2rem;
   font-weight: 500;
   margin-bottom: 0.5rem;
@@ -87,6 +87,7 @@
   </style>
 
   <div class="header">
+    <h2 id="bzg-version">Version: …</h2>
     <h1 class="page-title">PC Games</h1>
     <h2>⚠️THESE GAMES DONT WORK ON CHROMEBOOKS ONLY THE DESKTOPS⚠️ - <a style="color:white;" href="instructions.txt" target="_blank">Click here if you're confused</a></h2>
   </div>
@@ -94,7 +95,19 @@
   <div class="games-grid" id="gamesGrid">
     <div class="no-results">Loading PC games...</div>
   </div>
-
+<script>
+(async () => {
+  const el = document.getElementById('bzg-version');
+  const ts = Date.now();
+  try {
+    const r = await fetch(`https://raw.githubusercontent.com/Calvin99Cooler/bazinga-games/main/version.json?t=${ts}`);
+    const data = await r.json();
+    el.textContent = `Version: ${data.version}`;
+  } catch {
+    el.textContent = 'Version: unavailable';
+  }
+})();
+</script>
   <script>
     (() => {
       const grid = document.getElementById('gamesGrid');
