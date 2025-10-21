@@ -1,45 +1,46 @@
 <!DOCTYPE html>
 <html>
-
 <head>
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>Gladihoppers</title>
 
     <script>
-        // Suppress all JS errors from showing popups
-        window.onerror = function (message, source, lineno, colno, error) {
-            console.warn("Suppressed error:", message, "at", source + ":" + lineno + ":" + colno);
-            return true; // prevents default alert
-        };
+        // Suppress global JS errors
+        window.onerror = () => true;
+        window.onunhandledrejection = () => true;
 
-        window.onunhandledrejection = function (event) {
-            console.warn("Suppressed unhandled promise rejection:", event.reason);
-            event.preventDefault(); // prevents default alert
-        };
+        // Safe loader wrapper
+        try {
+            window.config = {
+                loader: 'unity',
+                debug: false,
+                maxRatio: 16 / 9,
+                minRatio: 9 / 16,
+                title: 'Gladihoppers',
+                thumbnail: 'https://cdn.jsdelivr.net/gh/genizy/gh/patch/png/null.png',
+                numScreenshots: 5,
+                unityVersion: '2019.3.13f1',
+                unityWebglBuildUrl: 'https://raw.githubusercontent.com/Calvin99Cooler/bazinga-games-assets/refs/heads/main/gladih/Build/Gladihoppers.json',
+                fileSize: 23,
+                cachedDecompressedFileSizes: {
+                    'Gladihoppers.data.unityweb': 17409938,
+                    'Gladihoppers.wasm.code.unityweb': 6410659,
+                    'Gladihoppers.wasm.framework.unityweb': 91463,
+                },
+            };
 
-        window.config = {
-            loader: 'unity',
-            debug: false,
-            maxRatio: 16 / 9,
-            minRatio: 9 / 16,
-            title: 'Gladihoppers',
-            thumbnail: 'https://cdn.jsdelivr.net/gh/genizy/gh/patch/png/null.png',
-            numScreenshots: 5,
-            unityVersion: '2019.3.13f1',
-            unityWebglBuildUrl: 'https://raw.githubusercontent.com/Calvin99Cooler/bazinga-games-assets/refs/heads/main/gladih/Build/Gladihoppers.json',
-            fileSize: 23,
-            cachedDecompressedFileSizes: {
-                'Gladihoppers.data.unityweb': 17409938,
-                'Gladihoppers.wasm.code.unityweb': 6410659,
-                'Gladihoppers.wasm.framework.unityweb': 91463,
-            },
-        };
+            const loaderScript = document.createElement('script');
+            loaderScript.src = 'https://cdn.jsdelivr.net/gh/genizy/gh/patch/js/poki-master-loader.js';
+            loaderScript.type = 'text/javascript';
+            loaderScript.crossOrigin = 'anonymous';
+            loaderScript.onerror = () => console.warn('Failed to load Poki loader (ignored).');
+
+            document.body.appendChild(loaderScript);
+        } catch (e) {
+            console.warn('Caught error (ignored):', e);
+        }
     </script>
 </head>
-
-<body>
-    <script src="https://cdn.jsdelivr.net/gh/genizy/gh/patch/js/poki-master-loader.js"></script>
-</body>
-
+<body></body>
 </html>
