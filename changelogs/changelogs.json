@@ -1,7 +1,14 @@
 [ 
   {
-    "version": "v1.4",
+    "version": "v1.5",
     "date": "October 17, 2025",
+    "changes": [
+      "Fixed - Karlson, 1v1.LOL, Gladi-Hoppers, Rocket Soccer Derby, Subway Surfers, Crazy Cattle 3D, TABS, Tag, All - throw a potato's, Get yoked.",
+    ]
+  },
+  {
+    "version": "v1.4",
+    "date": "October 20, 2025",
     "changes": [
       "Fixed - Bob the robber, Bob the robber 2, All of the fnaf games.",
       "Added a game(s) - Jack Smith."
