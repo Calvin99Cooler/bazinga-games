@@ -85,7 +85,20 @@
   margin-bottom: 0.5rem;
 }
   </style>
-   <center> <div id="pcg-version">Version: …</div></center>
+   <center>
+<script>    (async () => {
+  const el = cnt.querySelector('#pcg-version');
+  const ts = Date.now();
+  try {
+    const r = await fetch(`https://raw.githubusercontent.com/Calvin99Cooler/bazinga-games/main/version.json?t=${ts}`);
+    const data = await r.json();
+    el.textContent = `Version: ${data.version}`;
+  } catch {
+    el.textContent = 'Version: unavailable';
+  }
+})();
+</script>
+ <div id="pcg-version">Version: …</div></center>
   <div class="header">
     <h1 class="page-title">PC Games</h1>
     <h2>⚠️THESE GAMES DONT WORK ON CHROMEBOOKS ONLY THE DESKTOPS⚠️ - <a style="color:white;" href="instructions.txt" target="_blank">Click here if you're confused</a></h2>
@@ -135,17 +148,5 @@
           console.error(err);
         });
     })();
-
-    (async () => {
-  const el = cnt.querySelector('#pcg-version');
-  const ts = Date.now();
-  try {
-    const r = await fetch(`https://raw.githubusercontent.com/Calvin99Cooler/bazinga-games/main/version.json?t=${ts}`);
-    const data = await r.json();
-    el.textContent = `Version: ${data.version}`;
-  } catch {
-    el.textContent = 'Version: unavailable';
-  }
-})();
   </script>
 </div>
