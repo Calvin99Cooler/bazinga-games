@@ -1,32 +1,88 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-<title>Clever | Portal</title>
-<link rel="icon" href="https://assets.clever.com/launchpad/4cfe59076/favicon.ico" type="image/x-icon">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <meta charset="utf-8" />
+  <title>Clever | Portal</title>
+  <link rel="icon" href="https://assets.clever.com/launchpad/4cfe59076/favicon.ico" type="image/x-icon" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <style>
-    html, body {
-      margin: 0;
-      padding: 0;
-      background: #000;
-      color: #f5f5f5;
-      font-family: 'Poppins', sans-serif;
-    }
+/* Basic Reset and Body Styling */
+html, body {
+  margin: 0;
+  padding: 0;
+  background: #000;
+  color: #f5f5f5;
+  font-family: 'Poppins', sans-serif;
+}
 
-    #dock {
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      display: flex;
-      justify-content: center;
-      gap: 1rem;
-      padding: 0.75rem 1rem;
-      background: #111;
-      border-bottom: 1px solid rgba(255,255,255,.1);
-    }
+/* Floating, rounded, see-through, foggy top dock */
+#dock {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  padding: 0.75rem 1rem;
+  background: rgba(17, 17, 17, 0.6);
+  border-radius: 24px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,255,255,0.2);
+}
 
+/* Main content container with top margin to avoid being covered by dock */
+#widget-host {
+  margin-top: 80px; /* adjust as needed based on dock height */
+  min-height: calc(100vh - 80px);
+  padding: 1rem;
+}
+
+/* Styles for the announcement overlay, matching dock style */
+#announcement {
+  position: fixed;
+  top: 100px; /* position below the dock */
+  right: 20px;
+  max-width: 250px;
+  background: rgba(17, 17, 17, 0.6);
+  color: #fff;
+  padding: 12px 15px;
+  border-radius: 24px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,255,255,0.2);
+  display: flex;
+  flex-direction: column;
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.9rem;
+  line-height: 1.2;
+  z-index: 1100;
+}
+
+/* Header inside announcement box */
+#announcement h4 {
+  margin-top: 0;
+  margin-bottom: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+/* Close button style, made larger */
+#announcement .close-btn {
+  align-self: flex-end;
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-size: 1.8rem; /* increased from 1.2rem to 1.8rem */
+  cursor: pointer;
+  margin-top: 0;
+}
+
+    /* Button and SVG styles for dock buttons */
     .dock-btn-wrapper {
       position: relative;
       display: flex;
@@ -56,13 +112,14 @@
       width: 24px;
       height: 24px;
     }
+
     .dock-btn svg,
     .dock-btn svg * {
-    stroke: #fff !important;
+      stroke: #fff !important;
     }
     .dock-btn svg [fill="none"],
     .dock-btn svg [stroke="none"] {
-      fill:   none !important;
+      fill: none !important;
       stroke: none !important;
     }
 
@@ -90,10 +147,6 @@
       padding: 2rem;
       font-size: 1.2rem;
     }
-
-    #widget-host {
-      min-height: 100vh;
-    }
   </style>
 </head>
 <body>
@@ -101,19 +154,13 @@
 <div id="dock"></div>
 <div id="loader">Loading…</div>
 <div id="widget-host"></div>
-<!--   
-{
-    name: "OPENS IN NEW TAB",
-    icon: "svg image",
-    url: `new-tab: true;URL`
-  }, 
 
-{
-    name: "NORMAL WIDGET LOADER",
-    icon: "svg image"
-    url: "URL"
-  },
--->
+<div id="announcement" style="display:none;">
+  <h4>Announcement!</h4>
+  <button class="close-btn" id="close-announcement">&times;</button>
+  <div id="announcement-text">Loading announcement...</div>
+</div>
+
 <script>
 const dockItems = [
   {
@@ -156,6 +203,9 @@ const dockItems = [
 const dock = document.getElementById('dock');
 const host = document.getElementById('widget-host');
 const loader = document.getElementById('loader');
+const announcementDiv = document.getElementById('announcement');
+const announcementText = document.getElementById('announcement-text');
+const closeBtn = document.getElementById('close-announcement');
 
 async function svgToInline(url){
   try{
@@ -198,40 +248,49 @@ function loadWidget(url){
     .finally(()=>loader.style.display = 'none');
 }
 
-dockItems.forEach(item=>{
+function fetchAnnouncement() {
+  fetch('https://raw.githubusercontent.com/Calvin99Cooler/bazinga-games/main/announcment.txt')
+    .then(res => res.text())
+    .then(text => {
+      if (text.trim()) {
+        announcementText.textContent = text;
+        announcementDiv.style.display = 'flex';
+      }
+    })
+    .catch(() => {
+      // Optional: handle errors
+    });
+}
+
+closeBtn.onclick = () => {
+  announcementDiv.style.display = 'none';
+};
+
+dockItems.forEach(item => {
   const wrap = document.createElement('div');
   wrap.className = 'dock-btn-wrapper';
 
   const btn = document.createElement('button');
   btn.className = 'dock-btn';
-  svgToInline(item.icon).then(svg=>{
-    if(svg) btn.appendChild(svg);
+  svgToInline(item.icon).then(svg => {
+    if (svg) btn.appendChild(svg);
     else btn.innerHTML = '⚠️';
   });
-  btn.onclick = ()=>loadWidget(item.url);
+  btn.onclick = () => loadWidget(item.url);
 
   const lbl = document.createElement('span');
   lbl.className = 'btn-label';
   lbl.textContent = item.name;
 
-  wrap.append(btn,lbl);
+  wrap.append(btn, lbl);
   dock.appendChild(wrap);
 });
 
 // auto-load home
 loadWidget(dockItems[0].url);
-</script>
-<script>
-(function(){
-  if(window.localStorage){
-    if(!localStorage.getItem('firstLoad')){
-      localStorage['firstLoad']=true;
-      location.reload();
-    } else {
-      localStorage.removeItem('firstLoad');
-    }
-  }
-})();
+
+// fetch and show announcement on load
+fetchAnnouncement();
 </script>
 </body>
 </html>
