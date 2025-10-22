@@ -175,6 +175,21 @@
     "authorLink": "RobTop Games"
   },
   {
+    "name": "Basketball Legends (flash)",
+    "cover": "{COVER_URL}/28.png",
+    "url": "{HTML_URL}/28.html",
+    "author": "FRVR",
+    "authorLink": "https://play.google.com/store/apps/details?id=com.frvr.basketball"
+  },
+  
+  {
+    "name": "Basketball Legends 2020",
+    "cover": "{COVER_URL}/28.png",
+    "url": "{HTML_URL}/28.html",
+    "author": "FRVR",
+    "authorLink": "https://play.google.com/store/apps/details?id=com.frvr.basketball"
+  },
+  {
     "name": "Basketball Frvr",
     "cover": "{COVER_URL}/28.png",
     "url": "{HTML_URL}/28.html",
@@ -3592,6 +3607,7 @@
   }
 
 ]
+
 
 
 
