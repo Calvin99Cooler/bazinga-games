@@ -176,7 +176,7 @@
   },
   {
     "name": "Basketball Legends (flash)",
-    "cover": "{COVER_URL}/28.png",
+    "cover": "{COVER_URL}/legends-flash.jpeg",
     "url": "{HTML_URL}/28.html",
     "author": "FRVR",
     "authorLink": "https://play.google.com/store/apps/details?id=com.frvr.basketball"
@@ -184,7 +184,7 @@
   
   {
     "name": "Basketball Legends 2020",
-    "cover": "{COVER_URL}/28.png",
+    "cover": "{COVER_URL}/legends-2020.jpeg",
     "url": "{HTML_URL}/28.html",
     "author": "FRVR",
     "authorLink": "https://play.google.com/store/apps/details?id=com.frvr.basketball"
@@ -3607,6 +3607,7 @@
   }
 
 ]
+
 
 
 
