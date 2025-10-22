@@ -1,5 +1,12 @@
 [ 
   {
+    "version": "v1.8",
+    "date": "October 22, 2025",
+    "changes": [
+      "Changed the dock design & added a little announcement overlay."
+    ]
+  },
+  {
     "version": "v1.7",
     "date": "October 22, 2025",
     "changes": [
