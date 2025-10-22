@@ -1,0 +1,1 @@
+Changed the dock design look in changelogs for more info!
