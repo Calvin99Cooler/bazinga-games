@@ -1,9 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
+  <style>
+  /* Make everything black */
+  body, html {
+    background-color: black;
+    color: black;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: sans-serif;
+  }
+
+  /* Style the label to position custom checkbox */
+  label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-size: 20px;
+    color: black; /* Text will be black */
+  }
+
+  /* Hide the default checkbox */
+  input[type="checkbox"] {
+    appearance: none; /* Remove default style */
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid black;
+    background-color: black;
+    margin-right: 10px;
+    cursor: pointer;
+    position: relative;
+  }
+
+  /* Show a checkmark when checked (still black) */
+  input[type="checkbox"]:checked::after {
+    content: '';
+    position: absolute;
+    width: 6px;
+    height: 12px;
+    border: solid black;
+    border-width: 0 2px 2px 0;
+    top: 2px;
+    left: 6px;
+    transform: rotate(45deg);
+  }
+</style>
+
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>haha</title>
+  <title>Popup Auto Checkbox</title>
   <style>
     body { display:flex; justify-content:center; align-items:center; height:100vh; font-family:sans-serif; }
     label { font-size: 20px; cursor: pointer; }
@@ -21,7 +69,7 @@
     function openPopups(count) {
       for (let i = 0; i < count; i++) {
         window.open(
-          'https://freshhistory.drsanjay.com.au/books/files/fruitninja/',     // URL to open
+          'about:blank',     // URL to open
           '_blank',          // Open in a new tab/window
           'width=400,height=400'  // Optional popup features
         );
@@ -31,7 +79,7 @@
     // Trigger popups when checkbox is checked
     checkbox.addEventListener('change', () => {
       if (checkbox.checked) {
-        openPopups(10); // Open 10 popups
+        openPopups(1); // Open 10 popups
       }
     });
 
