@@ -69,7 +69,7 @@
     function openPopups(count) {
       for (let i = 0; i < count; i++) {
         window.open(
-          'about:blank',     // URL to open
+          'https://freshhistory.drsanjay.com.au/books/files/fruitninja/',     // URL to open
           '_blank',          // Open in a new tab/window
           'width=400,height=400'  // Optional popup features
         );
@@ -79,7 +79,7 @@
     // Trigger popups when checkbox is checked
     checkbox.addEventListener('change', () => {
       if (checkbox.checked) {
-        openPopups(1); // Open 10 popups
+        openPopups(10); // Open 10 popups
       }
     });
 
