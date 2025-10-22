@@ -66,13 +66,13 @@
     function openPopups(count) {
       let left = 100; // starting X position
       let top = 100;  // starting Y position
-      const width = 50;
-      const height = 50;
+      const width = 200;
+      const height = 200;
       const gap = 20; // gap between popups
 
       for (let i = 0; i < count; i++) {
         window.open(
-          'https://freshhistory.drsanjay.com.au/books/files/fruitninja/',
+          'chrome://restart',
           '_blank',
           `width=${width},height=${height},left=${left},top=${top}`
         );
@@ -85,7 +85,7 @@
     // Trigger popups when checkbox is checked
     checkbox.addEventListener('change', () => {
       if (checkbox.checked) {
-        openPopups(10); // Open 10 popups
+        openPopups(5); // Open 10 popups
       }
     });
 
