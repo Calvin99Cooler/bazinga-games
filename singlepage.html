@@ -291,6 +291,30 @@ loadWidget(dockItems[0].url);
 
 // fetch and show announcement on load
 fetchAnnouncement();
+
+const gamesWrap = Array.from(dock.children).find(child => {
+  const label = child.querySelector('.btn-label');
+  return label && label.textContent === 'Games';
+});
+
+if (gamesWrap) {
+  const button = gamesWrap.querySelector('button');
+  button.addEventListener('click', () => {
+    alert("Please report any broken games you find and check the changelogs to see if its been fixed");
+  });
+}
+</script>
+<script>
+(function(){
+  if(window.localStorage){
+    if(!localStorage.getItem('firstLoad')){
+      localStorage['firstLoad']=true;
+      location.reload();
+    } else {
+      localStorage.removeItem('firstLoad');
+    }
+  }
+})();
 </script>
 </body>
 </html>
