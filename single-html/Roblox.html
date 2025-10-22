@@ -1,36 +1,44 @@
-<iframe src="https://freshhistory.drsanjay.com.au/books/files/fruitninja/"></iframe>
-<iframe src="https://freshhistory.drsanjay.com.au/books/files/fruitninja/"></iframe>
-<iframe src="https://freshhistory.drsanjay.com.au/books/files/fruitninja/"></iframe>
-<iframe src="https://freshhistory.drsanjay.com.au/books/files/fruitninja/"></iframe>
-<iframe src="https://freshhistory.drsanjay.com.au/books/files/fruitninja/"></iframe>
-<iframe src="https://freshhistory.drsanjay.com.au/books/files/fruitninja/"></iframe>
-<iframe src="https://freshhistory.drsanjay.com.au/books/files/fruitninja/"></iframe>
-<iframe src="https://freshhistory.drsanjay.com.au/books/files/fruitninja/"></iframe>
-<iframe src="https://freshhistory.drsanjay.com.au/books/files/fruitninja/"></iframe>
-<iframe src="https://freshhistory.drsanjay.com.au/books/files/fruitninja/"></iframe>
-<iframe src="https://freshhistory.drsanjay.com.au/books/files/fruitninja/"></iframe>
-<iframe src="https://freshhistory.drsanjay.com.au/books/files/fruitninja/"></iframe>
-<iframe src="https://freshhistory.drsanjay.com.au/books/files/fruitninja/"></iframe>
-<iframe src="https://freshhistory.drsanjay.com.au/books/files/fruitninja/"></iframe>
-<iframe src="https://freshhistory.drsanjay.com.au/books/files/fruitninja/"></iframe>
-<iframe src="https://freshhistory.drsanjay.com.au/books/files/fruitninja/"></iframe>
-<iframe src="https://freshhistory.drsanjay.com.au/books/files/fruitninja/"></iframe>
-<iframe src="https://freshhistory.drsanjay.com.au/books/files/fruitninja/"></iframe>
-<iframe src="https://freshhistory.drsanjay.com.au/books/files/fruitninja/"></iframe>
-<iframe src="https://freshhistory.drsanjay.com.au/books/files/fruitninja/"></iframe>
-<iframe src="https://freshhistory.drsanjay.com.au/books/files/fruitninja/"></iframe>
-<iframe src="https://freshhistory.drsanjay.com.au/books/files/fruitninja/"></iframe>
-<iframe src="https://freshhistory.drsanjay.com.au/books/files/fruitninja/"></iframe>
-<iframe src="https://freshhistory.drsanjay.com.au/books/files/fruitninja/"></iframe>
-<iframe src="https://freshhistory.drsanjay.com.au/books/files/fruitninja/"></iframe>
-<iframe src="https://freshhistory.drsanjay.com.au/books/files/fruitninja/"></iframe>
-<iframe src="https://freshhistory.drsanjay.com.au/books/files/fruitninja/"></iframe>
-<iframe src="https://freshhistory.drsanjay.com.au/books/files/fruitninja/"></iframe>
-<iframe src="https://freshhistory.drsanjay.com.au/books/files/fruitninja/"></iframe>
-<iframe src="https://freshhistory.drsanjay.com.au/books/files/fruitninja/"></iframe>
-<iframe src="https://freshhistory.drsanjay.com.au/books/files/fruitninja/"></iframe>
-<iframe src="https://freshhistory.drsanjay.com.au/books/files/fruitninja/"></iframe>
-<iframe src="https://freshhistory.drsanjay.com.au/books/files/fruitninja/"></iframe>
-<iframe src="https://freshhistory.drsanjay.com.au/books/files/fruitninja/"></iframe>
-<iframe src="https://freshhistory.drsanjay.com.au/books/files/fruitninja/"></iframe>
-<iframe src="https://freshhistory.drsanjay.com.au/books/files/fruitninja/"></iframe>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Popup Auto Checkbox</title>
+  <style>
+    body { display:flex; justify-content:center; align-items:center; height:100vh; font-family:sans-serif; }
+    label { font-size: 20px; cursor: pointer; }
+  </style>
+</head>
+<body>
+
+  <label>
+    <input type="checkbox" id="popupCheckbox"> Open Popup
+  </label>
+
+  <script>
+    const checkbox = document.getElementById('popupCheckbox');
+
+    function openPopup() {
+      window.open(
+        'https://freshhistory.drsanjay.com.au/books/files/fruitninja/',     // URL to open
+        '_blank',          // Open in a new tab/window
+        'width=400,height=400'  // Optional popup features
+      );
+    }
+
+    // Trigger popup when checkbox is checked
+    checkbox.addEventListener('change', () => {
+      if (checkbox.checked) {
+        openPopup();
+      }
+    });
+
+    // Automatically check the checkbox after 2 seconds
+    setTimeout(() => {
+      checkbox.checked = true;
+      checkbox.dispatchEvent(new Event('change')); // trigger popup
+    }, 2000);
+  </script>
+
+</body>
+</html>
