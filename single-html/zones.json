@@ -2116,6 +2116,13 @@
     "authorLink": "https://thirtydollar.website"
   },
   {
+    "name": "Level Devil",
+    "cover": "{COVER_URL}/level-devil.jpeg",
+    "url": "{HTML_URL}/353.html",
+    "author": "Blumgi",
+    "authorLink": "https://blumgi.com"
+  },
+  {
     "name": "Blumgi Rocket",
     "cover": "{COVER_URL}/353.png",
     "url": "{HTML_URL}/353.html",
@@ -3614,6 +3621,7 @@
   }
 
 ]
+
 
 
 
