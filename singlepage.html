@@ -147,6 +147,10 @@ html, body {
       padding: 2rem;
       font-size: 1.2rem;
     }
+    
+      close-bt {
+     font-size: 17px;
+    }
   </style>
 </head>
 <body>
@@ -157,7 +161,7 @@ html, body {
 
 <div id="announcement" style="display:none;">
   <h4>Announcement!</h4>
-  <button class="close-btn" id="close-announcement">&times;</button>
+    <button class="close-btn" id="close-announcement"><close-bt>Click here to Close.</close-bt></button>
   <div id="announcement-text">Loading announcement...</div>
 </div>
 
@@ -207,9 +211,21 @@ const announcementDiv = document.getElementById('announcement');
 const announcementText = document.getElementById('announcement-text');
 const closeBtn = document.getElementById('close-announcement');
 
+/* 🔹 Helper function: append timestamp to every fetch */
+function fetchWithTimestamp(url, options = {}) {
+  try {
+    const separator = url.includes('?') ? '&' : '?';
+    const fullUrl = `${url}${separator}t=${Date.now()}`;
+    return fetch(fullUrl, options);
+  } catch (err) {
+    console.error("Timestamp fetch error:", err);
+    return fetch(url, options);
+  }
+}
+
 async function svgToInline(url){
   try{
-    const res = await fetch(url), text = await res.text();
+    const res = await fetchWithTimestamp(url), text = await res.text();
     const svg = new DOMParser().parseFromString(text,'image/svg+xml').querySelector('svg');
     if(!svg) return null;
     if(!svg.hasAttribute('viewBox')){
@@ -225,14 +241,13 @@ async function svgToInline(url){
 function loadWidget(url){
   const raw = url.trim();
   const match = raw.match(/new-tab\s*:\s*true\s*;\s*(.+)/i);
-  if(match){                  // open in new tab
+  if(match){                  
     window.open(match[1].trim(),'_blank');
     return;
   }
-  // else inject into page
   loader.style.display = 'block';
   host.innerHTML = '';
-  fetch(raw)
+  fetchWithTimestamp(raw)
     .then(r=>r.text())
     .then(html=>{
       host.innerHTML = html;
@@ -248,17 +263,18 @@ function loadWidget(url){
     .finally(()=>loader.style.display = 'none');
 }
 
+/* 🔹 Updated to fetch JSON with timestamp */
 function fetchAnnouncement() {
-  fetch('https://raw.githubusercontent.com/Calvin99Cooler/bazinga-games/main/announcement.txt')
-    .then(res => res.text())
-    .then(text => {
-      if (text.trim()) {
-        announcementText.textContent = text;
+  fetchWithTimestamp('https://raw.githubusercontent.com/Calvin99Cooler/bazinga-games/main/announcement.json')
+    .then(res => res.json())
+    .then(data => {
+      if (data && data.announcement && data.announcement.trim()) {
+        announcementText.textContent = data.announcement;
         announcementDiv.style.display = 'flex';
       }
     })
     .catch(() => {
-      // Optional: handle errors
+      // Optional error handling
     });
 }
 
@@ -266,6 +282,7 @@ closeBtn.onclick = () => {
   announcementDiv.style.display = 'none';
 };
 
+/* Build Dock */
 dockItems.forEach(item => {
   const wrap = document.createElement('div');
   wrap.className = 'dock-btn-wrapper';
@@ -292,6 +309,7 @@ loadWidget(dockItems[0].url);
 // fetch and show announcement on load
 fetchAnnouncement();
 
+/* Add message for Games section */
 const gamesWrap = Array.from(dock.children).find(child => {
   const label = child.querySelector('.btn-label');
   return label && label.textContent === 'Games';
@@ -303,18 +321,6 @@ if (gamesWrap) {
     alert("Please report any broken games you find and check the changelogs to see if its been fixed");
   });
 }
-</script>
-<script>
-(function(){
-  if(window.localStorage){
-    if(!localStorage.getItem('firstLoad')){
-      localStorage['firstLoad']=true;
-      location.reload();
-    } else {
-      localStorage.removeItem('firstLoad');
-    }
-  }
-})();
 </script>
 </body>
 </html>
